@@ -5,7 +5,7 @@
 var express     = require('express'),
     app         = express(),
     path        = require('path'),
-    port        = process.env.PORT || 3000;
+    args        = {};
 
 /**
  * Serve static files from the app directory.
@@ -22,5 +22,17 @@ app.get('/', function(req, res) {
   res.sendfile('index.html', { root: "app" });
 });
 
-app.listen(port);
-console.log('Server listening on port ' + port);
+/**
+ * Get the arguments that the server was started with
+ */
+process.argv.forEach(function (val, index, array) {
+    if ( val.indexOf('=') !== -1 ) args[val.split('=')[0]] = val.split('=')[1];
+});
+
+/**
+ * Start the express server
+ */
+app.listen(args.port || 3000, function() {
+    console.log('Server listening on port ' + (args.port || 3000));
+});
+
