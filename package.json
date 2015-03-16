@@ -2,6 +2,7 @@
   "name": "Sennep",
   "version": "0.0.0",
   "description": "A coding test for those loveable rogues at Sennep.",
+  "repository": "https://github.com/darve/sennep.git",
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
