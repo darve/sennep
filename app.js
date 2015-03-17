@@ -41,7 +41,6 @@ passport.deserializeUser(function(user, done) {
 
 passport.use(new twitterStrategy(auth.passport,
   function(token, tokenSecret, profile, done) {
-    // console.log(arguments);
       return done(null, profile);
   }
 ));

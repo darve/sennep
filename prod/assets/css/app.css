@@ -1,0 +1,231 @@
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font: inherit;
+  font-size: 100%;
+  vertical-align: baseline; }
+
+html {
+  line-height: 1; }
+
+ol, ul {
+  list-style: none; }
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0; }
+
+caption, th, td {
+  text-align: left;
+  font-weight: normal;
+  vertical-align: middle; }
+
+q, blockquote {
+  quotes: none; }
+
+q:before, q:after, blockquote:before, blockquote:after {
+  content: "";
+  content: none; }
+
+a img {
+  border: none; }
+
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section, summary {
+  display: block; }
+
+/* 	Colour variables and mixins
+/* ======================================= */
+/* 	Base styles
+/* ======================================= */
+/* 	Typography styles
+/* ======================================= */
+/**
+ * Gotham Rounded Light
+ */
+@font-face {
+  font-family: 'GothamRounded-Light';
+  src: url('/assets/fonts/GothamRounded-Light/GothamRounded-Light.eot?#iefix') format('embedded-opentype'), url('/assets/fonts/GothamRounded-Light/GothamRounded-Light.woff') format('woff'), url('/assets/fonts/GothamRounded-Light/GothamRounded-Light.ttf') format('truetype'), url('/assets/fonts/GothamRounded-Light/GothamRounded-Light.svg#GothamRounded-Light') format('svg');
+  font-weight: normal;
+  font-style: normal; }
+
+/**
+ * Gotham Rounded Medium
+ */
+@font-face {
+  font-family: 'GothamRounded-Medium';
+  src: url('/assets/fonts/GothamRounded-Medium/GothamRounded-Medium.eot?#iefix') format('embedded-opentype'), url('/assets/fonts/GothamRounded-Medium/GothamRounded-Medium.otf') format('opentype'), url('/assets/fonts/GothamRounded-Medium/GothamRounded-Medium.woff') format('woff'), url('/assets/fonts/GothamRounded-Medium/GothamRounded-Medium.ttf') format('truetype'), url('GothamRounded-Medium.svg#GothamRounded-Medium') format('svg');
+  font-weight: normal;
+  font-style: normal; }
+
+.f-gotham-light {
+  font-family: 'GothamRounded-Light', sans-serif; }
+
+.f-gotham-medium {
+  font-family: 'GothamRounded-Medium', sans-serif; }
+
+/*  Form styling
+/* ======================================= */
+input[type=text], input[type=email], input[type=phone], select, textarea {
+  border: 1px solid #555;
+  outline: none;
+  padding: 8px 5px;
+  width: 100%;
+  font-size: 13px;
+  border-radius: 4px; }
+  input[type=text].margin-bottom, input[type=email].margin-bottom, input[type=phone].margin-bottom, select.margin-bottom, textarea.margin-bottom {
+    margin-bottom: 20px; }
+
+textarea {
+  height: 100px; }
+
+input[type=checkbox] {
+  margin: 0 0 0 0; }
+
+form .row {
+  display: block;
+  margin: 0 0 16px 0; }
+  form .row.full-width {
+    width: 100%; }
+  form .row.half-width {
+    display: inline-block;
+    width: 47%; }
+    form .row.half-width.left {
+      margin-right: 6%; }
+  form .row label {
+    display: block;
+    font-size: 15px;
+    padding: 0 0 3px 0; }
+    form .row label.inline-block {
+      display: inline-block;
+      vertical-align: top; }
+  form .row input {
+    display: block; }
+    form .row input.inline-block {
+      display: inline-block;
+      vertical-align: top; }
+
+/* 	Global styles
+/* ======================================= */
+* {
+  box-sizing: border-box; }
+
+body, html {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  font-family: sans-serif;
+  background: #CECBBE; }
+
+/**
+ * Stripey background.
+ */
+body:after {
+  content: '';
+  display: block;
+  position: fixed;
+  left: 0;
+  top: 65px;
+  width: 100%;
+  height: 100%;
+  z-index: 5;
+  pointer-events: none;
+  background: repeating-linear-gradient(0deg, #E0DED3, #E0DED3 125px, #CECBBE 125px, #CECBBE 250px); }
+
+a {
+  color: black;
+  text-decoration: none; }
+
+.section, .inner {
+  display: block;
+  position: relative;
+  width: 100%; }
+
+#wrapper {
+  display: block;
+  padding: 65px 0 0; }
+
+header {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 65px;
+  padding: 20px;
+  overflow: hidden;
+  background: white;
+  z-index: 10; }
+  header h1 {
+    display: block;
+    float: left;
+    font-size: 18px;
+    padding: 6px; }
+    header h1 a {
+      transition: all .2s ease-out; }
+      header h1 a:hover, header h1 a:focus, header h1 a:active {
+        color: #333333; }
+  header a.refresh {
+    display: block;
+    float: right;
+    max-width: 26px;
+    transition: all .2s ease-out;
+    cursor: pointer; }
+    header a.refresh:hover {
+      -webkit-transform: rotate(180deg);
+      transform: rotate(180deg); }
+  header img {
+    cursor: pointer;
+    display: block;
+    width: 100%; }
+
+#tweets {
+  position: relative;
+  z-index: 6;
+  display: none; }
+  #tweets.show {
+    display: block; }
+  #tweets .tweet {
+    display: block;
+    position: relative;
+    padding: 18px 18px 18px 62px;
+    overflow: hidden; }
+    #tweets .tweet:nth-child(odd) {
+      background: #E0DED3; }
+      #tweets .tweet:nth-child(odd) a {
+        color: #3461AB; }
+        #tweets .tweet:nth-child(odd) a:hover, #tweets .tweet:nth-child(odd) a:focus, #tweets .tweet:nth-child(odd) a:active {
+          color: #7196d4; }
+    #tweets .tweet:nth-child(even) {
+      background: #000;
+      color: white; }
+      #tweets .tweet:nth-child(even) a {
+        color: #EB9303; }
+        #tweets .tweet:nth-child(even) a:hover, #tweets .tweet:nth-child(even) a:focus, #tweets .tweet:nth-child(even) a:active {
+          color: white; }
+    #tweets .tweet a {
+      text-decoration: none;
+      transition: all .2s ease-out; }
+  #tweets .avatar {
+    display: block;
+    position: absolute;
+    width: 43px;
+    border-radius: 6px;
+    left: 18px;
+    top: 18px; }
+  #tweets .inner {
+    display: block;
+    float: left;
+    padding-left: 18px; }
+  #tweets .name {
+    font-size: 12px;
+    line-height: 18px;
+    margin: 0 0 4px; }
+  #tweets .text {
+    font-size: 18px;
+    line-height: 24px; }
+
+.inner {
+  max-width: 1080px; }
+
+/* 	Shameful styles
+/* ======================================= */
