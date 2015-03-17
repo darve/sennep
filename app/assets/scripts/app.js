@@ -19,7 +19,7 @@
     window.template = $('#tweet-template').html();
     window.dummy = {
         tweet_id: "123456",
-        avatar_url: 'https://s3-us-west-2.amazonaws.com/slack-files2/avatars/2014-10-28/2884805237_48.jpg',
+        avatar_url: '/assets/img/avatar.png',
         display_name: 'Dave Hurricane',
         twitter_handle: '@davehurricane',
         text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolore, illo quidem consequuntur inventore aliquid ab, sunt repellendus fugit blanditiis facere facilis.'

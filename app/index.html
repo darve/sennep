@@ -13,7 +13,7 @@
     <div id="wrapper">
         
         <header>
-            <h1>Hello, friends.</h1>
+            <h1 class="f-gotham-medium">@davehurricane</h1>
             <a class="refresh">
                 <img src="/assets/icons/refresh.svg" alt="Refresh your favourite tweets." />
             </a>
@@ -34,8 +34,8 @@
         <div class="tweet" data-id=<%= tweet_id %>>
             <img src="<%= avatar_url %>" alt="<%= display_name %>" class="avatar" />
             <div class="inner">
-                <span class="name"><%= display_name %> <%= twitter_handle %></span>
-                <span class="text"><%= text %></span>
+                <h2 class="name f-gotham-light"><%= display_name %> <%= twitter_handle %></h2>
+                <p class="text f-gotham-medium"><%= text %></p>
             </div>
         </div>
     </script>
