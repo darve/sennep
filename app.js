@@ -8,7 +8,15 @@ var express             = require('express'),
     args                = {},
     session             = require('express-session'),
     passport            = require('passport'),
-    twitterStrategy     = require('passport-twitter').Strategy;
+    twitterStrategy     = require('passport-twitter').Strategy,
+    auth                = require('./core/auth'),
+    twitter             = require('twitter'),
+    client;
+
+/**
+ * Create a new twitter client
+ */
+client = new twitter(auth.twitter);
 
 
 /**
@@ -28,10 +36,16 @@ app.use(session({
 
 
 /**
- * Passport configuration
+ * Initialise passport middleware
  */
 app.use(passport.initialize());
 app.use(passport.session());
+
+passport.use(new twitterStrategy(auth.passport,
+  function(token, tokenSecret, profile, done) {
+      return done(null, profile);
+  }
+));
 
 passport.serializeUser(function(user, done) {
     done(null, user);
@@ -40,16 +54,6 @@ passport.serializeUser(function(user, done) {
 passport.deserializeUser(function(user, done) {
     done(null, user);
 });
-
-passport.use(new twitterStrategy({
-    consumerKey: 'K6kZzTHsatcXgPieyEcotxfY4',
-    consumerSecret: 'hgAYZPLMSTdK9wCS4PsSWzh5NhsniJKg8ZlN1UE6rVBXrqWpim',
-    callbackURL: 'http://127.0.0.1:3000/auth/twitter/authed'
-  },
-  function(token, tokenSecret, profile, done) {
-      return done(null, profile);
-  }
-));
 
 
 /**
@@ -64,8 +68,17 @@ app.get('/auth/twitter/authed', passport.authenticate('twitter',
 ));
 
 app.get('/tweets', function(req, res){
-    console.log(req.session);
-    res.send(200).json('success!');
+
+});
+
+app.get('/api/tweets', function(req, res){
+    var user = req.session.passport.user.id;
+    console.log(req.session.passport.user.id);
+
+    client.get('favorites/list', { user_id: user }, function(err, tweets, response){
+        res.json(tweets);
+    });
+
 });
 
 app.use('/', function(req, res, next) {

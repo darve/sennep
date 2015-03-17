@@ -4,8 +4,14 @@
  * -----------------------------
  */
 
-(function(win, doc) {
+(function(win, doc, _) {
+
+    'use strict';
+
+    var util = {};
 
 
+    // DOM has loaded, fire off the init function.
+    $(init);
 
-})(window,document);
+})(window,document, _);
