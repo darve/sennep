@@ -14,17 +14,6 @@ var express             = require('express'),
     autolinker          = require('autolinker'),
     client;
 
-/**
- * Create a new twitter client
- */
-client = new twitter(auth.twitter);
-
-
-/**
- * Serve static files from the app directory.
- */
-app.use('/', express.static(path.resolve(__dirname, 'app')));
-
 
 /**
  * Initialise persistent sessions
@@ -57,10 +46,18 @@ passport.use(new twitterStrategy(auth.passport,
   }
 ));
 
+
 /**
- * Twitter authentication routes
+ * Create a new twitter client
+ */
+client = new twitter(auth.twitter);
+
+
+/**
+ * Setup twitter authentication routes
  */
 app.get('/auth/twitter', passport.authenticate('twitter'));
+
 app.get('/auth/twitter/authed', passport.authenticate('twitter',
     {
         successRedirect: '/',
@@ -68,24 +65,29 @@ app.get('/auth/twitter/authed', passport.authenticate('twitter',
     }
 ));
 
-app.get('/tweets', function(req, res){
 
-});
-
+/**
+ * Setup the main route that returns tweet data
+ */
 app.get('/api/tweets', function(req, res){
 
+    // If there is an existing session, we are in business.
     if ( req.session.passport.user ) {
 
         var user = req.session.passport.user.id,
             data = [],
             t;
 
-        client.get('favorites/list', { user_id: user }, function(err, tweets, response){
+        // Request the 25 newest favourited tweets for the authenticated user.
+        client.get('favorites/list', { user_id: user, count: 25 }, function(err, tweets, response){
 
+            // There is an error, send that to the client
             if ( err !== null ) {
                 res.json({ message: err.message });
             }
 
+            // We have tweets! Send only the fields that the client needs to save
+            // unnecessary clientside bloat.
             for ( var i in tweets ) {
                 t = tweets[i];
 
@@ -110,17 +112,6 @@ app.get('/api/tweets', function(req, res){
 
 });
 
-app.use('/', function(req, res, next) {
-  res.status(404).json('File not found');
-});
-
-/**
- * Index route
- */
-// app.get('/', function(req, res) {
-//   res.sendfile('index.html', { root: 'app' });
-// });
-//
 
 /**
  * Get the arguments that the server was started with
@@ -128,6 +119,21 @@ app.use('/', function(req, res, next) {
 process.argv.forEach(function (val, index, array) {
     if ( val.indexOf('=') !== -1 ) args[val.split('=')[0]] = val.split('=')[1];
 });
+
+
+/**
+ * Serve static files from the app directory.
+ */
+app.use('/', express.static(path.resolve(__dirname, args.prod ? 'prod' : 'app')));
+
+
+/**
+ * Handle 404 errors
+ */
+app.use('/', function(req, res, next) {
+  res.status(404).json('File not found');
+});
+
 
 /**
  * Start the express server

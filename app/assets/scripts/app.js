@@ -4,29 +4,25 @@
  * -----------------------------
  */
 
-(function(win, doc, _) {
-
+(function(win, doc, $, _) {
 
     'use strict';
 
-
-    var util = {},
-        tweets = [],
+    var tweets = [],
         $handle = $('#twitter-handle'),
         $tweets = $('#tweets'),
         $notLoggedIn = $('#not-logged-in'),
         $refresh = $('a.refresh'),
         template = _.template($('#tweet-template').html());
 
-
     /**
      * When the DOM has finished loading, this function is fired.
+     * Gets the tweets and binds an event listener on the refresh button.
      */
     function init() {
         getTweets();
         $refresh.on('click', getTweets);
     }
-
 
     /**
      * This makes a request for the favourited tweet data, and responds
@@ -38,6 +34,7 @@
         tweets = [];
         $tweets.html('');
 
+        // Make a request to the server
         $.getJSON('/api/tweets', function(response){
 
             if ( 'tweets' in response ) {
@@ -52,7 +49,6 @@
         });
     }
 
-
     /**
      * Iterates through the list of tweets returned from the server
      * and compiles each one into a template, then appends it to the
@@ -60,20 +56,20 @@
      */
     function parseTweets(list) {
 
-        for ( var i in list ) {
+        var i;
+
+        for ( i in list ) {
             tweets.push(template(list[i]));
         }
 
-        for ( var i in tweets )  {
+        for ( i in tweets )  {
             $tweets.append(tweets[i]);
         }
 
         $tweets.show();
     }
 
-
     // DOM has loaded, fire off the init function.
     $(init);
 
-
-})(window,document, _);
+})(window,document, jQuery, _);

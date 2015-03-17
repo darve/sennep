@@ -22,7 +22,7 @@ gulp.task('sass', function() {
     gulp.src('./scss/*.scss')
     .pipe(sass())
     .pipe(autoprefixer({
-        browsers: ['last 2 versions'],
+        browsers: ['last 6 versions'],
         cascade: false
     }))
     .pipe(mincss())
@@ -65,6 +65,14 @@ gulp.task('build', function() {
         // Copy over any images
         gulp.src(['app/assets/img/**/*'])
             .pipe(gulp.dest('prod/assets/img'));
+
+        // Copy over any icons
+        gulp.src(['app/assets/icons/**/*'])
+            .pipe(gulp.dest('prod/assets/icons'));
+
+        // Copy over any fonts
+        gulp.src(['app/assets/fonts/**/*'])
+            .pipe(gulp.dest('prod/assets/fonts'));
 
         // Copy over any vendor files
         gulp.src(['app/assets/vendor/**/*'])
