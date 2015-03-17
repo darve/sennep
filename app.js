@@ -41,12 +41,6 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-passport.use(new twitterStrategy(auth.passport,
-  function(token, tokenSecret, profile, done) {
-      return done(null, profile);
-  }
-));
-
 passport.serializeUser(function(user, done) {
     done(null, user);
 });
@@ -55,6 +49,12 @@ passport.deserializeUser(function(user, done) {
     done(null, user);
 });
 
+passport.use(new twitterStrategy(auth.passport,
+  function(token, tokenSecret, profile, done) {
+    // console.log(arguments);
+      return done(null, profile);
+  }
+));
 
 /**
  * Twitter authentication routes
@@ -62,28 +62,39 @@ passport.deserializeUser(function(user, done) {
 app.get('/auth/twitter', passport.authenticate('twitter'));
 app.get('/auth/twitter/authed', passport.authenticate('twitter',
     {
-        successRedirect: '/tweets',
+        successRedirect: '/',
         failureRedirect: '/error'
     }
 ));
 
-app.get('/tweets', function(req, res){
-
-});
-
 app.get('/api/tweets', function(req, res){
-    console.log(req);
+
     if ( req.session.passport.user ) {
-        var user = req.session.passport.user.id;
-        console.log(req.session.passport.user.id);
+
+        var user = req.session.passport.user.id,
+            data = [],
+            t;
+
         client.get('favorites/list', { user_id: user }, function(err, tweets, response){
 
-            res.json(tweets[0]);
+            for ( var i in tweets ) {
+                t = tweets[i];
+
+                data.push({
+                    tweet_id: t.id,
+                    avatar_url: t.user.profile_image_url,
+                    display_name: t.user.name,
+                    twitter_handle: t.user.screen_name,
+                    text: t.text
+                });
+            }
+
+            res.json(data);
         });
+
     } else {
         res.json('Not logged in');
     }
-
 });
 
 app.use('/', function(req, res, next) {

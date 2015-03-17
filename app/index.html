@@ -13,7 +13,7 @@
     <div id="wrapper">
         
         <header>
-            <h1 class="f-gotham-medium">@davehurricane</h1>
+            <h1 id="twitter-handle" class="f-gotham-medium"><a href="/auth/twitter/">Connect</a></h1>
             <a class="refresh">
                 <img src="/assets/icons/refresh.svg" alt="Refresh your favourite tweets." />
             </a>
@@ -21,20 +21,13 @@
 
         <ul id="tweets"></ul>
 
-        <div class="section" id="not-logged-in">
-            <div class="inner">
-                <h1>Hello, friends.</h1>
-                <a href="/auth/twitter/">Sign in with twitter</a>
-            </div>
-        </div>
-
     </div>
 
     <script type="text/template" id="tweet-template">
-        <div class="tweet" data-id=<%= tweet_id %>>
+        <div class="tweet" data-id=<%= tweet_id %> draggable>
             <img src="<%= avatar_url %>" alt="<%= display_name %>" class="avatar" />
             <div class="inner">
-                <h2 class="name f-gotham-light"><%= display_name %> <%= twitter_handle %></h2>
+                <h2 class="name f-gotham-light"><%= display_name %> @<%= twitter_handle %></h2>
                 <p class="text f-gotham-medium"><%= text %></p>
             </div>
         </div>
