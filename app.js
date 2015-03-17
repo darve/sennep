@@ -11,6 +11,7 @@ var express             = require('express'),
     twitterStrategy     = require('passport-twitter').Strategy,
     auth                = require('./core/auth'),
     twitter             = require('twitter'),
+    autolinker          = require('autolinker'),
     client;
 
 /**
@@ -67,6 +68,10 @@ app.get('/auth/twitter/authed', passport.authenticate('twitter',
     }
 ));
 
+app.get('/tweets', function(req, res){
+
+});
+
 app.get('/api/tweets', function(req, res){
 
     if ( req.session.passport.user ) {
@@ -77,6 +82,10 @@ app.get('/api/tweets', function(req, res){
 
         client.get('favorites/list', { user_id: user }, function(err, tweets, response){
 
+            if ( err !== null ) {
+                res.json({ message: err.message });
+            }
+
             for ( var i in tweets ) {
                 t = tweets[i];
 
@@ -85,16 +94,20 @@ app.get('/api/tweets', function(req, res){
                     avatar_url: t.user.profile_image_url,
                     display_name: t.user.name,
                     twitter_handle: t.user.screen_name,
-                    text: t.text
+                    text: autolinker.link(t.text)
                 });
             }
 
-            res.json(data);
+            res.json({
+                user: '@' + req.session.passport.user.username,
+                tweets: data
+            });
         });
 
     } else {
-        res.json('Not logged in');
+        res.json({ message: 'not logged in' });
     }
+
 });
 
 app.use('/', function(req, res, next) {
