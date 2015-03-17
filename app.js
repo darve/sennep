@@ -72,12 +72,17 @@ app.get('/tweets', function(req, res){
 });
 
 app.get('/api/tweets', function(req, res){
-    var user = req.session.passport.user.id;
-    console.log(req.session.passport.user.id);
+    console.log(req);
+    if ( req.session.passport.user ) {
+        var user = req.session.passport.user.id;
+        console.log(req.session.passport.user.id);
+        client.get('favorites/list', { user_id: user }, function(err, tweets, response){
 
-    client.get('favorites/list', { user_id: user }, function(err, tweets, response){
-        res.json(tweets);
-    });
+            res.json(tweets[0]);
+        });
+    } else {
+        res.json('Not logged in');
+    }
 
 });
 

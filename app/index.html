@@ -21,7 +21,7 @@
 
         <ul id="tweets"></ul>
 
-        <div class="section not-logged-in">
+        <div class="section" id="not-logged-in">
             <div class="inner">
                 <h1>Hello, friends.</h1>
                 <a href="/auth/twitter/">Sign in with twitter</a>
@@ -30,11 +30,11 @@
 
     </div>
 
-    <script type="text/template">
+    <script type="text/template" id="tweet-template">
         <div class="tweet" data-id=<%= tweet_id %>>
             <img src="<%= avatar_url %>" alt="<%= display_name %>" class="avatar" />
             <div class="inner">
-                <span class="name"><%= display_name %></span>
+                <span class="name"><%= display_name %> <%= twitter_handle %></span>
                 <span class="text"><%= text %></span>
             </div>
         </div>
