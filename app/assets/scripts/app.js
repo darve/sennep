@@ -41,10 +41,10 @@
         $.getJSON('/api/tweets', function(response){
 
             if ( 'tweets' in response ) {
-                $handle.text(handle);
+                $handle.text(response.user);
                 parseTweets(response.tweets);
             } else if ( 'message' in response ) {
-                flash(response.message);
+                console.log(response.message);
             }
 
         }, function(err){
