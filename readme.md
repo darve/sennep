@@ -23,9 +23,3 @@ About the layout:
 - Keep the header fixed on top, scroll list underneath
 - Alternate background colour of each tweet 
 - See PDF for font sizes and colours
-
-Please send us a link to the finished result. Ideally also create Github or Bitbucket repository and push regularly from the beginning. Please share with christoph@sennep.com. 
-
-Feel free to ask any questions you might have about anything that is unclear to christoph@sennep.com.
-
-Looking forward to see the outcome! Thanks!
