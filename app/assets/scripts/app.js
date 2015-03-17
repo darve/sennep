@@ -41,7 +41,7 @@
         $.getJSON('/api/tweets', function(response){
 
             if ( 'tweets' in response ) {
-                $handle.text(handle);
+                $handle.text(response.user);
                 parseTweets(response.tweets);
             } else if ( 'message' in response ) {
                 console.log(response.message);
